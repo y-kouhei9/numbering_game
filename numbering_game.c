@@ -16,15 +16,17 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-# define MAX_STAGE   (10)		// 入力制限回数
+# define MAX_STAGE   (10)		// 最大入力回数
 # define RAND_RANGE	 (1000)		// 乱数の範囲
 
 
 int main(void)
 {
+	int i;
 	int no;						// 入力された値
 	int ans;					// 当てる数
-	int remain = MAX_STAGE;		// 残入力回数
+	int stage;					// 入力した回数
+	int num[MAX_STAGE];			// 読み込んだ値の履歴
 
 	// タネの初期化と範囲の設定
 	srand(time(NULL));
@@ -32,23 +34,30 @@ int main(void)
 
 	printf("1~999の整数を当ててください。\n\n");
 
+	stage = 0;
+
 	do {
-		printf("残り%d回 - いくつかな: ", remain);
+		printf("残り%d回 - いくつかな: ", MAX_STAGE - stage);
 		scanf("%d", &no);
-		remain--;
+		num[stage++] = no;
 
 		if (no > ans) {
 			printf("\aもっと小さいよ。\n");
 		} else if (no < ans) {
 			printf("\aもっと大きいよ。\n");
 		} 
-	} while (no != ans && remain > 0);
+	} while (no != ans && stage < MAX_STAGE);
 
 	if (no != ans) {
 		printf("\a残念。正解は%dでした。\n", ans);
 	} else {
 		printf("正解です。\n");
-		printf("%d回で正解しました。\n", MAX_STAGE - remain);
+		printf("%d回で正解しました。\n", MAX_STAGE - stage);
+	}
+
+	puts("\n ----- 入力履歴 -----");
+	for (i = 0; i < stage; i++) {
+		printf(" %2d : %4d %+4d\n", i + 1, num[i], num[i] - ans);
 	}
 
 	return 0;
