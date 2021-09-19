@@ -12,30 +12,33 @@
 		2021/09/19
 ***********************************************/
 
+# include <time.h>
 # include <stdio.h>
+# include <stdlib.h>
+
 
 int main(void)
 {
 	int no;
-	int ans = 8;
+	int ans;
 
-	printf("0~9の整数を当ててください。\n\n");
+	srand(time(NULL));
+	ans = 1 + rand() % 1000;
 
-	while (1) {
+	printf("1~999の整数を当ててください。\n\n");
+
+	do {
 		printf("いくつかな: ");
 		scanf("%d", &no);
 
 		if (no > ans) {
-			printf("\aもっと小さいよ\n");
-			continue;
+			printf("\aもっと小さいよ。\n");
 		} else if (no < ans) {
-			printf("\aもっと大きいよ\n");
-			continue;
-		} else if (no == ans) {
-			printf("正解です\n");
-			break;
-		}	
-	}
+			printf("\aもっと大きいよ。\n");
+		} 
+	} while (no != ans);
+
+	printf("正解です。\n");
 
 	return 0;
 
