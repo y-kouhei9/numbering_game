@@ -52,7 +52,7 @@ int main(void)
 		printf("\a残念。正解は%dでした。\n", ans);
 	} else {
 		printf("正解です。\n");
-		printf("%d回で正解しました。\n", MAX_STAGE - stage);
+		printf("%d回で正解しました。\n", stage);
 	}
 
 	puts("\n ----- 入力履歴 -----");
